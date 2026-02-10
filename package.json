@@ -6,6 +6,7 @@
     "start": "next start",
     "lint": "next lint",
     "dev": "cross-env APP_ENV=development next dev --turbopack",
+    "dev:prod": "cross-env APP_ENV=production next dev --turbopack",
     "build:stg": "cross-env APP_ENV=stg next build",
     "build:prod": "cross-env APP_ENV=production next build",
     "build:prepod": "cross-env APP_ENV=prepod next build",
@@ -16,11 +17,11 @@
     "build_sv": "webpack --config webpack_sv.config.js"
   },
   "dependencies": {
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.4",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.4.7"
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
