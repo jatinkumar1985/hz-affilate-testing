@@ -19,15 +19,6 @@ module.exports = {
         },
       },
       {
-        name: "prepod",
-        script: "node_modules/next/dist/bin/next",
-        args: "start",
-        env: {
-          APP_ENV: "prepod",
-          PORT:3001,
-        },
-      },
-      {
         name: "dev",
         script: "node_modules/next/dist/bin/next",
         args: "dev",
