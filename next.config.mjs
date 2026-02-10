@@ -5,6 +5,7 @@ import loadEnv from "./env-loader.js";
 loadEnv(appEnv);
 
 const nextConfig = {
+    cacheComponents: true,
     images: {
         unoptimized: true,
         minimumCacheTTL: 10,

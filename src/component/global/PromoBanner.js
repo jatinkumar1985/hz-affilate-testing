@@ -1,5 +1,5 @@
 "use client";
-import React from 'react'
+import React, { Suspense } from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -13,8 +13,8 @@ export default function PromoBanner({PromoBannerData}) {
     return (
         <>
             <div className='max-w-7xl mx-auto lg:mb-2 px-4 lg:px-0 mt-2 lg:mt-8'>
-                <Swiper
-                    slidesPerView={4}
+                <Suspense><Swiper
+                    slidesPerView={2}
                     spaceBetween={30} 
                     pagination={{
                         clickable: true,
@@ -31,12 +31,17 @@ export default function PromoBanner({PromoBannerData}) {
                         loadPrevNext: true,
                         loadPrevNextAmount: 2,
                     }}
+                    breakpoints={{
+                        768: {
+                            slidesPerView: 4,
+                        },
+                    }}
                     modules={[Pagination, Autoplay]} 
                     className="mySwiper !pb-8 lg:!pb-10"
                 >
                     {PromoBannerData?.map((items,index)=>{     
                         const desktopImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.image}`                                           
-                        const mobileImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.mobile_image}`                                           
+                        const mobileImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.image}`                                           
                         return(
                             <SwiperSlide key={index} className='overflow-hidden rounded-xl lg:rounded-2xl'>
                                 <GlobalLink href={items.url} target={items.target} rel="nofollow sponsored">
@@ -65,7 +70,7 @@ export default function PromoBanner({PromoBannerData}) {
                             </SwiperSlide>
                         )
                     })}
-                </Swiper>
+                </Swiper></Suspense>
             </div>
             <style jsx global>{`
                 .mySwiper .swiper-pagination {
