@@ -1,4 +1,4 @@
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 import { LatestArticleService, PromoBannerService } from "./ListingService";
 
 
@@ -20,6 +20,7 @@ export async function getCachedPromoBanner({ slug, lang }) {
 // Option 2: 3 minutes → little bit more fresh
 export async function getCachedLatestArticleService({ pageNo = 0, limit = 10, lang }) {
     'use cache'
+    cacheTag('latest-articles');      // For instant revalidation when publishing
     cacheLife('minutes', 3)           // ← Add this line
 
     console.log('[CACHE-TEST] Fetching latest articles — should only run once!');
