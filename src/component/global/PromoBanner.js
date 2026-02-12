@@ -14,7 +14,7 @@ export default function PromoBanner({PromoBannerData}) {
         <>
             <div className='max-w-7xl mx-auto lg:mb-2 px-4 lg:px-0 mt-2 lg:mt-8'>
                 <Suspense><Swiper
-                    slidesPerView={2}
+                    slidesPerView={1}
                     spaceBetween={30} 
                     pagination={{
                         clickable: true,
@@ -31,11 +31,11 @@ export default function PromoBanner({PromoBannerData}) {
                         loadPrevNext: true,
                         loadPrevNextAmount: 2,
                     }}
-                    breakpoints={{
-                        768: {
-                            slidesPerView: 4,
-                        },
-                    }}
+                    // breakpoints={{
+                    //     768: {
+                    //         slidesPerView: 4,
+                    //     },
+                    // }}
                     modules={[Pagination, Autoplay]} 
                     className="mySwiper !pb-8 lg:!pb-10"
                 >

@@ -68,7 +68,7 @@ export default function LatestNews({ LatestNewsData }) {
 
     return (
         <div className="max-w-7xl mx-auto space-y-4 px-4 lg:px-0 mb-6 lg:mb-14">
-            <h2 className='text-xl lg:text-2xl uppercase font-[900] mb-4 lg:mb-6 flex justify-between items-center'>
+            <h2 className='text-xl lg:text-2xl uppercase font-black mb-4 lg:mb-6 flex justify-between items-center'>
                 <span className='relative before:absolute before:-top-1 before:left-0 before:w-full before:h-2/3 before:bg-pink-200 before:z-[-10]'>Latest News</span>
                 <GlobalLink
                     href="/latest-product-news"
