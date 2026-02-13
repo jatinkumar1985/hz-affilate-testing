@@ -39,9 +39,11 @@ export default function PromoBanner({PromoBannerData}) {
                     modules={[Pagination, Autoplay]} 
                     className="mySwiper !pb-8 lg:!pb-10"
                 >
-                    {PromoBannerData?.map((items,index)=>{     
+                    {PromoBannerData?.map((items,index)=>{ 
+                        console.log(items);
+                            
                         const desktopImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.image}`                                           
-                        const mobileImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.image}`                                           
+                        const mobileImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.mobile_image}`                                           
                         return(
                             <SwiperSlide key={index} className='overflow-hidden rounded-xl lg:rounded-2xl'>
                                 <GlobalLink href={items.url} target={items.target} rel="nofollow sponsored">
