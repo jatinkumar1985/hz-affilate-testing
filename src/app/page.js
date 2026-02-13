@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 import PromoBanner from "@/component/global/PromoBanner";
 import LatestNews from "@/component/home/LatestNews";
 import { LatestArticleService, PromoBannerService } from "@/services/ListingService";
