@@ -17,7 +17,6 @@
     "build_sv": "webpack --config webpack_sv.config.js"
   },
   "dependencies": {
-    "axios": "^1.13.5",
     "cross-env": "^10.1.0",
     "dotenv": "^17.2.4",
     "next": "16.1.6",

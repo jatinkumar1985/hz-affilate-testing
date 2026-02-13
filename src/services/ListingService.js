@@ -1,45 +1,55 @@
-const { default: axios } = require("axios");
-// Updated payload with cache control headers
-const headers = { 
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_SITE_TOKEN}`,
-    'Cache-Control': 'public, max-age=120'
-};
-exports.PromoBannerService = async ({slug}) => {
-    try {
-        const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-slider/${slug}`;
-        const resp = await axios.get(apiPath, {
-            headers,
-            cache: 'no-store',
-            next: { revalidate: 0 }
-        });
-        return resp.data;
-    } catch (err) {
-        return null;
+export async function PromoBannerService(params) {
+  const { slug } = params || {};
+
+  try {
+    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-slider/${slug}`;
+
+    const response = await fetch(apiPath, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SITE_TOKEN}`,
+        // Cache-Control header is optional – Next.js prioritizes its own caching
+        // 'Cache-Control': 'public, max-age=300'
+      },
+      // IMPORTANT: remove these – let 'use cache' + cacheLife control caching
+      // cache: 'no-store',
+      // next: { revalidate: 0 }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-};
-exports.LatestArticleService = async ({ pageNo = 0, limit = 10 }) => {
-    try {
-        const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-article/${pageNo}/${limit}`;               
-        const resp = await axios.get(apiPath, {
-            headers,
-            cache: 'no-store',
-            next: { revalidate: 0 }
-        });        
-        return resp.data;
-    } catch (err) {
-        return null;
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('PromoBannerService error:', error);
+    return null;
+  }
+}
+
+export async function LatestArticleService(params) {
+  const { pageNo = 0, limit = 10 } = params || {};
+
+  try {
+    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-article/${pageNo}/${limit}`;
+
+    const response = await fetch(apiPath, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SITE_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-};
-exports.SubCategoryListingService = async ({ category, subcategory, pageNo = 1, limit = 18 }) => {
-    try {
-        const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-article-by-subcategory/${category}/${subcategory}/${pageNo}/${limit}`;        
-        const resp = await axios.get(apiPath, {
-            headers,
-            cache: 'no-store',
-            next: { revalidate: 0 }
-        });
-        return resp.data;
-    } catch (err) {
-        return null;
-    }
-};
+
+    return await response.json();
+  } catch (error) {
+    console.error('LatestArticleService error:', error);
+    return null;
+  }
+}
+
+// You can convert other services (SubCategoryListingService etc.) the same way...

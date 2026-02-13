@@ -1,23 +1,33 @@
 import PromoBanner from "@/component/global/PromoBanner";
 import LatestNews from "@/component/home/LatestNews";
-import { getCachedLatestArticleService, getCachedPromoBanner } from "@/services/CachedServices";
+import { getCachedPromoBanner, getCachedLatestArticleService } from "@/services/CachedServices";
 import { Suspense } from "react";
 
 export default async function Home() {
-  const PromoBannerApi = getCachedPromoBanner({slug:'no-category'});
-  const LatestArticleApi = getCachedLatestArticleService({pageNo:'1',limit:'13'});
-  const results = await Promise.allSettled([
-    PromoBannerApi,
-    LatestArticleApi
+  const promoPromise = getCachedPromoBanner('no-category');
+  const latestPromise = getCachedLatestArticleService(1, 13); // pageNo=1, limit=13
+
+  const [promoResult, latestResult] = await Promise.allSettled([
+    promoPromise,
+    latestPromise,
   ]);
-  const PromoBannerData = results[0].status === 'fulfilled' ? results[0].value : null;
-  const LatestArticleData = results[1].status === 'fulfilled' ? results[1].value : null;  
-  // console.log(PromoBannerData);
-  
+
+  const promoData = promoResult.status === 'fulfilled' ? promoResult.value : null;
+  const latestData = latestResult.status === 'fulfilled' ? latestResult.value : null;
+
   return (
     <>
-      {PromoBannerData && <Suspense><PromoBanner PromoBannerData={PromoBannerData} /></Suspense>}
-      {LatestArticleData && <LatestNews LatestNewsData={LatestArticleData} />}
+      {promoData && (
+        <Suspense 
+          fallback={
+            <div className="h-64 bg-gray-100 animate-pulse rounded-xl mx-4 lg:mx-auto max-w-7xl mt-2 lg:mt-8" />
+          }
+        >
+          <PromoBanner PromoBannerData={promoData} />
+        </Suspense>
+      )}
+
+      {latestData && <LatestNews LatestNewsData={latestData} />}
     </>
   );
 }
