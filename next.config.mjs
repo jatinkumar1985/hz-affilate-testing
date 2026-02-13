@@ -5,13 +5,14 @@ import loadEnv from "./env-loader.js";
 loadEnv(appEnv);
 
 const nextConfig = {
+    cacheComponents: true,
     images: {
         unoptimized: true,
         minimumCacheTTL: 10,
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "imgeng.jagran.com",
+                hostname: "img.jagranreviews.com",
                 port: "",
                 pathname: "/**",
             }

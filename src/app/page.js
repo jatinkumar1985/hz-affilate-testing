@@ -1,10 +1,11 @@
 import PromoBanner from "@/component/global/PromoBanner";
 import LatestNews from "@/component/home/LatestNews";
-import { LatestArticleService, PromoBannerService } from "@/services/ListingService";
+import { getCachedLatestArticleService, getCachedPromoBanner } from "@/services/CachedServices";
+import { Suspense } from "react";
 
 export default async function Home() {
-  const PromoBannerApi = PromoBannerService({slug:'no-category'});
-  const LatestArticleApi = LatestArticleService({pageNo:'1',limit:'13'});
+  const PromoBannerApi = getCachedPromoBanner({slug:'no-category'});
+  const LatestArticleApi = getCachedLatestArticleService({pageNo:'1',limit:'13'});
   const results = await Promise.allSettled([
     PromoBannerApi,
     LatestArticleApi
@@ -15,7 +16,7 @@ export default async function Home() {
   
   return (
     <>
-      {PromoBannerData && <PromoBanner PromoBannerData={PromoBannerData} />}
+      {PromoBannerData && <Suspense><PromoBanner PromoBannerData={PromoBannerData} /></Suspense>}
       {LatestArticleData && <LatestNews LatestNewsData={LatestArticleData} />}
     </>
   );

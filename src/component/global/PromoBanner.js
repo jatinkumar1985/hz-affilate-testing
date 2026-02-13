@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from 'react'
+import React from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -13,7 +13,7 @@ export default function PromoBanner({PromoBannerData}) {
     return (
         <>
             <div className='max-w-7xl mx-auto lg:mb-2 px-4 lg:px-0 mt-2 lg:mt-8'>
-                <Suspense><Swiper
+                <Swiper
                     slidesPerView={1}
                     spaceBetween={30} 
                     pagination={{
@@ -70,7 +70,7 @@ export default function PromoBanner({PromoBannerData}) {
                             </SwiperSlide>
                         )
                     })}
-                </Swiper></Suspense>
+                </Swiper>
             </div>
             <style jsx global>{`
                 .mySwiper .swiper-pagination {
