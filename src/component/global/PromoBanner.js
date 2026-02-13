@@ -37,11 +37,9 @@ export default function PromoBanner({PromoBannerData}) {
                     //     },
                     // }}
                     modules={[Pagination, Autoplay]} 
-                    className="mySwiper !pb-8 lg:!pb-10"
+                    className="mySwiper pb-8! lg:pb-10!"
                 >
-                    {PromoBannerData?.map((items,index)=>{ 
-                        console.log(items);
-                            
+                    {PromoBannerData?.map((items,index)=>{
                         const desktopImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.image}`                                           
                         const mobileImageUrl = `${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${items?.mobile_image}`                                           
                         return(
