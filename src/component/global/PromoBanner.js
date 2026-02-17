@@ -12,7 +12,7 @@ import GlobalLink from './GlobalLink';
 export default function PromoBanner({PromoBannerData}) {
     return (
         <>
-            <div className='max-w-7xl mx-auto lg:mb-2 px-4 lg:px-0 mt-2 lg:mt-8'>
+            <div className='lg:max-w-7xl sm:max-w-6xl mx-auto lg:mb-2 px-4 lg:px-0 mt-2 lg:mt-8'>
                 <Swiper
                     slidesPerView={1}
                     spaceBetween={30} 
