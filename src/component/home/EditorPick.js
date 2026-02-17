@@ -73,7 +73,7 @@ export default function EditorPick({ EditorPick }) {
               const categorySlug = item?.category?.category_slug;
               const subcategorySlug = item?.subcategory?.category_slug;
               return (
-                <SwiperSlide key={index} className="rounded-2xl lg:rounded-2xl bg-white group shadow-[0_0_15px_rgba(0,0,0,0.15)]">
+                <SwiperSlide key={index} className="">
                   <GlobalLink href={`/${categorySlug}/${subcategorySlug}/${item?.page_url}-${item?.id}`} className="mb-3 block">
                     {/* <Image
                       src={`${process.env.NEXT_PUBLIC_MODE_IMAGE_PATH}${item.thumb_image}`}
@@ -89,10 +89,10 @@ export default function EditorPick({ EditorPick }) {
                         alt={item.title || 'Article image'}
                         width={1200}
                         height={675}
-                        className="flex-none overflow-hidden lg:aspect-[3/2] rounded-t-2xl lg:rounded-t-2xl object-cover transition duration-300 ease-in-out w-full mb-1"
+                        className="flex-none overflow-hidden lg:aspect-[3/2] rounded-2xl lg:rounded-2xl object-cover transition duration-300 ease-in-out w-full mb-1"
                     />
                   </GlobalLink>
-                  <div className="px-4 pb-4">
+                  <div className="pb-4">
                     <p className={`mb-1 text-[9px]/2 uppercase hover:text-red-700 text-red-500`}>
                       <GlobalLink href={`/${categorySlug}/${subcategorySlug}`}>{item.subcategory.category_name}</GlobalLink>
                     </p>

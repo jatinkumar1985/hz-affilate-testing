@@ -1,19 +1,22 @@
+import Category from "@/component/global/Category";
 import PromoBanner from "@/component/global/PromoBanner";
 import EditorPick from "@/component/home/EditorPick";
 import LatestNews from "@/component/home/LatestNews";
-import { getCachedPromoBanner, getCachedLatestArticleService, getCachedArticleListService } from "@/services/CachedServices";
+import { getCachedPromoBanner, getCachedLatestArticleService, getCachedArticleListService, getCachedCategoryWidgetsService } from "@/services/CachedServices";
 import { Suspense } from "react";
 
 export default async function Home() {
   const promoPromise = getCachedPromoBanner('no-category');
   const latestPromise = getCachedLatestArticleService(1, 5);
   const editorsChoicePromise = getCachedArticleListService('get-editors-choice-article', 1, 6);
+  const categoryWidgetsPromise = getCachedCategoryWidgetsService();
 
-  const [promoResult, latestResult, editorsChoice] = await Promise.allSettled([ promoPromise, latestPromise, editorsChoicePromise ]);
+  const [promoResult, latestResult, editorsChoice, categoryWidgets] = await Promise.allSettled([ promoPromise, latestPromise, editorsChoicePromise, categoryWidgetsPromise ]);
 
   const promoData = promoResult.status === 'fulfilled' ? promoResult.value : null;
   const latestData = latestResult.status === 'fulfilled' ? latestResult.value : null;
   const editorsChoiceData = editorsChoice.status === 'fulfilled' ? editorsChoice.value : null;
+  const categoryWidgetsData = categoryWidgets.status === 'fulfilled' ? categoryWidgets.value : null;
   
   return (
     <>
@@ -25,6 +28,7 @@ export default async function Home() {
 
       {latestData && <LatestNews LatestNewsData={latestData} />}
       {editorsChoiceData && <EditorPick EditorPick={editorsChoiceData} />}
+      {categoryWidgetsData && <Category label="Category" CategoryWidgetsData={categoryWidgetsData} />}
     </>
   );
 }

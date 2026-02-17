@@ -74,5 +74,26 @@ export async function ArticleListService(params) {
     return null;
   }
 }
+export async function CategoryWidgetsService(params) {
+  try {
+    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}get-category-widgets`;
+
+    const response = await fetch(apiPath, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SITE_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('LatestArticleService error:', error);
+    return null;
+  }
+}
 
 // You can convert other services (SubCategoryListingService etc.) the same way...

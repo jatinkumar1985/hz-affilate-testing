@@ -1,5 +1,5 @@
 import { cacheLife, cacheTag } from 'next/cache';
-import { PromoBannerService, LatestArticleService, ArticleListService } from './ListingService';
+import { PromoBannerService, LatestArticleService, ArticleListService, CategoryWidgetsService } from './ListingService';
 
 // Recommended: use 'hours' for most promo banners (changes rarely)
 export async function getCachedPromoBanner(slug) {
@@ -32,8 +32,18 @@ export async function getCachedArticleListService(categoryType, pageNo = 0, limi
   'use cache';
   
   cacheLife('minutes');                  // articles usually more fresh
-  cacheTag(`latest-articles-page-${pageNo}`);
+  cacheTag(`articles-list-${pageNo}`);
 
   const data = await ArticleListService({ categoryType, pageNo, limit });
+  return data;
+}
+
+export async function getCachedCategoryWidgetsService() {
+  'use cache';
+  
+  cacheLife('max');                  // Rarely changes
+  cacheTag(`category-widgets`);
+
+  const data = await CategoryWidgetsService();
   return data;
 }
