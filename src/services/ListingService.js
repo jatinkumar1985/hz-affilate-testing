@@ -2,7 +2,7 @@ export async function PromoBannerService(params) {
   const { slug } = params || {};
 
   try {
-    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-slider/${slug}`;
+    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}get-slider/${slug}`;
 
     const response = await fetch(apiPath, {
       method: 'GET',
@@ -32,7 +32,30 @@ export async function LatestArticleService(params) {
   const { pageNo = 0, limit = 10 } = params || {};
 
   try {
-    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}/get-article/${pageNo}/${limit}`;
+    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}get-article/${pageNo}/${limit}`;
+
+    const response = await fetch(apiPath, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SITE_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('LatestArticleService error:', error);
+    return null;
+  }
+}
+export async function ArticleListService(params) {
+  const { categoryType, pageNo = 0, limit = 10 } = params || {};
+
+  try {
+    const apiPath = `${process.env.NEXT_PUBLIC_MODE_BASE_API}${categoryType}/${pageNo}/${limit}`;
 
     const response = await fetch(apiPath, {
       method: 'GET',
